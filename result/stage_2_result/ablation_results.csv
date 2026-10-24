@@ -1,0 +1,6 @@
+config,accuracy,precision,recall,f1,final_train_loss
+baseline [256] adam lr=1e-3,0.9781,0.9782,0.9781,0.9781,0.0060
+hidden [128],0.9783,0.9783,0.9783,0.9783,0.0059
+"hidden [256,128] deeper",0.9768,0.9771,0.9768,0.9768,0.0072
+optimizer SGD momentum=0.9,0.9482,0.9481,0.9482,0.9481,0.1832
+learning rate 1e-2,0.9713,0.9715,0.9713,0.9713,0.0444
