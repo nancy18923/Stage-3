@@ -1,0 +1,13 @@
+dataset,config,overrides,epochs,train_samples,batch_size,learning_rate,optimizer,loss_func,conv_channels,kernel,padding,pool,hidden_dims,dropout,batch_norm,accuracy,precision,recall,f1,best_test_acc,final_test_acc,train_time_s
+ORL,baseline,(baseline),20,360,32,0.001,adam,ce,32-64,3,1,max2,128,0.5,1,0.575,0.4571,0.575,0.4892,0.75,0.575,18.1
+ORL,kernel5,"kernel_size=5, padding=2",20,360,32,0.001,adam,ce,32-64,5,2,max2,128,0.5,1,0.75,0.6667,0.75,0.6917,0.85,0.75,26.2
+ORL,padding0,"kernel_size=3, padding=0",20,360,32,0.001,adam,ce,32-64,3,0,max2,128,0.5,1,0.6,0.4833,0.6,0.5208,0.7,0.6,17.0
+ORL,depth_up,"conv_channels=[32, 64, 128]",20,360,32,0.001,adam,ce,32-64-128,3,1,max2,128,0.5,1,0.85,0.7958,0.85,0.8125,0.875,0.85,24.1
+ORL,wider,"conv_channels=[64, 128]",20,360,32,0.001,adam,ce,64-128,3,1,max2,128,0.5,1,0.7,0.6208,0.7,0.6458,0.75,0.7,51.6
+ORL,avgpool,pool_type=avg,20,360,32,0.001,adam,ce,32-64,3,1,avg2,128,0.5,1,0.775,0.6875,0.775,0.7167,0.775,0.775,16.9
+ORL,no_bn,use_batch_norm=False,20,360,32,0.001,adam,ce,32-64,3,1,max2,128,0.5,0,0.425,0.2875,0.425,0.3292,0.425,0.425,14.5
+ORL,dropout0,dropout=0.0,20,360,32,0.001,adam,ce,32-64,3,1,max2,128,0.0,1,0.75,0.6583,0.75,0.6875,0.825,0.75,17.8
+ORL,hidden256,hidden_dims=[256],20,360,32,0.001,adam,ce,32-64,3,1,max2,256,0.5,1,0.825,0.7583,0.825,0.7792,0.825,0.825,16.6
+ORL,sgd,optimizer_name=sgd,20,360,32,0.001,sgd,ce,32-64,3,1,max2,128,0.5,1,0.225,0.1392,0.225,0.1583,0.275,0.225,17.0
+ORL,nll,loss_func=nll,20,360,32,0.001,adam,nll,32-64,3,1,max2,128,0.5,1,0.575,0.4571,0.575,0.4892,0.75,0.575,17.0
+ORL,lr_dec,learning_rate=0.0001,20,360,32,0.0001,adam,ce,32-64,3,1,max2,128,0.5,1,0.25,0.1425,0.25,0.1646,0.275,0.25,16.6

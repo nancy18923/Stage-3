@@ -14,6 +14,11 @@ __pycache__/
 data/stage_2_data/train.csv
 data/stage_2_data/test.csv
 
+# Stage 3 数据集：MNIST 424MB / CIFAR 181MB / ORL 12MB，均超过 GitHub 限制
+# 只保留老师给的说明文件 ReadMe.txt
+data/stage_3_data/*
+!data/stage_3_data/ReadMe.txt
+
 # 训练日志（可选保留，若想保留就删掉下面这行）
 *.log
 

@@ -1,0 +1,13 @@
+dataset,config,overrides,epochs,train_samples,batch_size,learning_rate,optimizer,loss_func,conv_channels,kernel,padding,pool,hidden_dims,dropout,batch_norm,accuracy,precision,recall,f1,best_test_acc,final_test_acc,train_time_s
+MNIST,baseline,(baseline),3,3000,64,0.001,adam,ce,32-64,3,1,max2,128,0.25,1,0.8803,0.8859,0.8803,0.8796,0.8803,0.8803,8.5
+MNIST,kernel5,"kernel_size=5, padding=2",3,3000,64,0.001,adam,ce,32-64,5,2,max2,128,0.25,1,0.9338,0.9349,0.9338,0.9337,0.9338,0.9338,7.5
+MNIST,padding0,"kernel_size=3, padding=0",3,3000,64,0.001,adam,ce,32-64,3,0,max2,128,0.25,1,0.9207,0.9236,0.9207,0.9204,0.9207,0.9207,4.8
+MNIST,depth_up,"conv_channels=[32, 64, 128]",3,3000,64,0.001,adam,ce,32-64-128,3,1,max2,128,0.25,1,0.9563,0.9594,0.9563,0.9566,0.9563,0.9563,8.0
+MNIST,wider,"conv_channels=[64, 128]",3,3000,64,0.001,adam,ce,64-128,3,1,max2,128,0.25,1,0.9019,0.9062,0.9019,0.9007,0.9019,0.9019,15.4
+MNIST,avgpool,pool_type=avg,3,3000,64,0.001,adam,ce,32-64,3,1,avg2,128,0.25,1,0.812,0.8304,0.812,0.8081,0.812,0.812,5.4
+MNIST,no_bn,use_batch_norm=False,3,3000,64,0.001,adam,ce,32-64,3,1,max2,128,0.25,0,0.671,0.7299,0.671,0.6473,0.671,0.671,5.3
+MNIST,dropout0,dropout=0.0,3,3000,64,0.001,adam,ce,32-64,3,1,max2,128,0.0,1,0.8962,0.9015,0.8962,0.8967,0.8962,0.8962,6.0
+MNIST,hidden256,hidden_dims=[256],3,3000,64,0.001,adam,ce,32-64,3,1,max2,256,0.25,1,0.9193,0.92,0.9193,0.9191,0.9193,0.9193,6.1
+MNIST,sgd,optimizer_name=sgd,3,3000,64,0.001,sgd,ce,32-64,3,1,max2,128,0.25,1,0.4767,0.606,0.4767,0.4603,0.4767,0.4767,6.0
+MNIST,nll,loss_func=nll,3,3000,64,0.001,adam,nll,32-64,3,1,max2,128,0.25,1,0.8803,0.8859,0.8803,0.8796,0.8803,0.8803,6.1
+MNIST,lr_dec,learning_rate=0.0001,3,3000,64,0.0001,adam,ce,32-64,3,1,max2,128,0.25,1,0.666,0.7453,0.666,0.6393,0.666,0.666,6.1
