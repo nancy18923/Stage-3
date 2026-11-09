@@ -190,6 +190,53 @@ def plot_combined(series, out_path):
     return True
 
 
+def plot_grid(tags, histories, out_path):
+    """compact figure for the report: one row per experiment, loss and accuracy side by side"""
+    if not tags:
+        return False
+
+    rows = len(tags)
+    fig, axes = plt.subplots(rows, 2, figsize=(7.6, 1.35 * rows + 0.45), squeeze=False)
+
+    for row, (tag, history) in enumerate(zip(tags, histories)):
+        epochs = list(range(1, len(history['train_loss']) + 1))
+        ax_loss, ax_acc = axes[row][0], axes[row][1]
+
+        ax_loss.plot(epochs, history['train_loss'], color=C_TRAIN, marker='o', markersize=2.2,
+                     linewidth=1.2, label='train')
+        if history.get('test_loss'):
+            ax_loss.plot(epochs, history['test_loss'], color=C_TEST, marker='s', markersize=2.2,
+                         linewidth=1.2, label='test')
+        display = tag.replace('_base', '')
+        ax_loss.set_ylabel('loss', fontsize=8)
+        ax_loss.set_title(f'{display} - loss', fontsize=9)
+        ax_loss.legend(fontsize=7, frameon=False, loc='best')
+        ax_loss.tick_params(labelsize=7)
+        ax_loss.grid(alpha=0.3)
+        format_epoch_axis(ax_loss, len(epochs))
+        ax_loss.xaxis.label.set_size(8)
+
+        ax_acc.plot(epochs, history['train_acc'], color=C_TRAIN, marker='o', markersize=2.2,
+                    linewidth=1.2, label='train')
+        if history.get('test_acc'):
+            ax_acc.plot(epochs, history['test_acc'], color=C_TEST, marker='s', markersize=2.2,
+                        linewidth=1.2, label='test')
+        ax_acc.set_ylabel('accuracy', fontsize=8)
+        ax_acc.set_title(f'{display} - accuracy', fontsize=9)
+        ax_acc.set_ylim(0, 1.02)
+        ax_acc.legend(fontsize=7, frameon=False, loc='best')
+        ax_acc.tick_params(labelsize=7)
+        ax_acc.grid(alpha=0.3)
+        format_epoch_axis(ax_acc, len(epochs))
+        ax_acc.xaxis.label.set_size(8)
+
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=200, bbox_inches='tight')
+    plt.close(fig)
+    print(f'  saved {os.path.basename(out_path)}')
+    return True
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description='plot the training curves stored in the result files')
     parser.add_argument('tags', nargs='*',
@@ -202,6 +249,8 @@ def parse_args():
                         help='folder for the png files, default: <result-folder>/figures/')
     parser.add_argument('--no-combined', action='store_true',
                         help='skip the overlay figure')
+    parser.add_argument('--grid', action='store_true',
+                        help='also write a compact grid figure (one row per experiment), curve_grid_all.png')
     return parser.parse_args()
 
 
@@ -243,6 +292,10 @@ def main():
 
     if not args.no_combined:
         plot_combined(series, os.path.join(figure_folder, 'curve_comparison.png'))
+
+    if args.grid and series:
+        plot_grid([tag for tag, _ in series], [history for _, history in series],
+                  os.path.join(figure_folder, 'curve_grid_all.png'))
 
     print()
     print(f'done, {len(series)} figure(s) written to {figure_folder}')
